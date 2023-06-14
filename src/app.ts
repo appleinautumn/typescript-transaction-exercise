@@ -1,11 +1,23 @@
-import { json } from 'body-parser';
 import express, { Request, Response, NextFunction } from 'express';
+import { json } from 'body-parser';
+
+import successHandler from './middlewares/success_handler';
+import indexRouter from './routes/index';
+
+// extend response object
+express.response.success = successHandler;
 
 async function main() {
   const app = express();
 
   app.use(json());
   app.use(express.urlencoded({ extended: false }));
+
+  app.use('/transactions', indexRouter);
+
+  app.get('/', (req: Request, res: Response, next: NextFunction) => {
+    res.send('Transaction API');
+  });
 
   // error handler
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
