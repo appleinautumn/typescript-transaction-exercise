@@ -1,5 +1,5 @@
-import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser';
+import express, { Request, Response, NextFunction } from 'express';
 
 import successHandler from './middlewares/success_handler';
 import indexRouter from './routes/index';
