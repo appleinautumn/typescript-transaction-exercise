@@ -19,5 +19,13 @@ async function getData(): Promise<string> {
 }
 
 export const listTransactions: RequestHandler = async (req, res, next) => {
-  res.json(data);
+  res.send('list');
+};
+
+export const getTransaction: RequestHandler<{ id: string }> = async (
+  req,
+  res,
+  next
+) => {
+  res.send('get');
 };
