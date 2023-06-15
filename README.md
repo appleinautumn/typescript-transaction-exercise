@@ -46,7 +46,7 @@ Install the dependencies
 npm install
 ```
 
-Start the app
+Compile the typescript code and start the app
 
 ```bash
 npm run dev
