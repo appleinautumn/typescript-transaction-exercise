@@ -88,4 +88,4 @@ docker run -d --name bunkertest1 -p 3001:3000 --network=host --env-file=.env bun
 
 List transactions
 
-![List transactions](docs/images/list.jpg)
+![List transactions](docs/images/list.png)
