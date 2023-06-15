@@ -1,11 +1,15 @@
 import { Router } from 'express';
 
-import { getTransaction, listTransactions } from '../controllers/transaction';
+import TransactionRepository from '../repositories/transaction';
+import TransactionController from '../controllers/transaction';
+
+const repository = new TransactionRepository('data.csv');
+const controller = new TransactionController(repository);
 
 const router = Router();
 
-router.get('/:id', getTransaction);
+router.get('/:id', controller.getTransaction);
 
-router.get('/', listTransactions);
+router.get('/', controller.listTransactions);
 
 export default router;
