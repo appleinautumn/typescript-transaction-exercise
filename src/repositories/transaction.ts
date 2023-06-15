@@ -2,6 +2,7 @@ import fs from 'fs';
 import * as csv from 'fast-csv';
 import { ParserOptionsArgs } from 'fast-csv';
 import { HeaderArray, HeaderTransformFunction } from '@fast-csv/parse';
+import _ from 'lodash';
 import * as path from 'path';
 
 import { Transaction, TransactionDatabase } from '../models/transaction';
@@ -41,7 +42,32 @@ export default class TransactionRepository {
       });
   }
 
-  list() {
+  list(filters: any, sortableFields: string[]) {
+    // convert it to list of transactions
+    const transactionList: Transaction[] = [];
+    Object.entries(this.#db).forEach(([key, val]) => {
+      transactionList.push(val);
+    });
+
+    // start filtering
+    let filteredData: any;
+    Object.entries(filters).forEach(([key, val]) => {
+      filteredData = transactionList.filter((el) => {
+        const k = key as string;
+        // console.log(el[k as keyof Transaction] as string, val);
+
+        return (el[k as keyof Transaction] as string).toLowerCase() === val;
+      });
+
+      // console.log({ filteredData });
+    });
+
+    // sort the list
+    if (sortableFields.length > 0) {
+      // return res.success_.sortBy(filteredData, sortableFields));
+      return _.sortBy(filteredData, sortableFields);
+    }
+
     return this.#db;
   }
 
