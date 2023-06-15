@@ -51,12 +51,17 @@ export default class TransactionRepository {
 
     // start filtering
     let filteredData: any;
-    Object.entries(filters).forEach(([key, val]) => {
-      filteredData = transactionList.filter((el) => {
-        const k = key as string;
-        return (el[k as keyof Transaction] as string).toLowerCase() === val;
+
+    if (Object.keys(filters).length) {
+      Object.entries(filters).forEach(([key, val]) => {
+        filteredData = transactionList.filter((el) => {
+          const k = key as string;
+          return (el[k as keyof Transaction] as string).toLowerCase() === val;
+        });
       });
-    });
+    } else {
+      filteredData = transactionList;
+    }
 
     // sort the list
     if (sortableFields.length > 0) {
