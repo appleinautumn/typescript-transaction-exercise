@@ -144,3 +144,21 @@ List transactions with multiple filters and multiple sorts
 Get a transaction by id with specified sparse fields
 
 ![get-with-sparse-fields](docs/images/get-with-sparse-fields.png)
+
+## Feedback
+
+- I've been a software engineer for quite some time. But I've never used Typescript in a working environment. I can build this API quickly with just Javascript, but with Typescript, I found myself having a tough time integrating with Express.
+- `data` directory is the place where I store the csv file. I'm simulating the database with this file.
+- `dist` directory is where all the compiled Typescript to Javascript files are located.
+- `src` directory is where all the Typescript files are located.
+- `test` directory is where all the tests files are located. Yes this is pure Javascript given the limited time. But the app itself is all written with Typescript.
+- `src/app.ts` is the main entry point.
+- `src/routes` is the route.
+- `src/controllers` is to store handlers for "listing" and "getting" Transaction routes.
+- `src/middlewares` is where middlewares are. Currently only 1 file and it extends the express object to have "success" handler so that we have a success template for happy path.
+- `src/repositories` is repository layer. This is where our application gets the data from. Normally a "Service" layer will interact with this file, but this API is too small to need this layer.
+- `src/models` is where I define the Transaction interface.
+- I cannot make the integration test work (with supertest library) because the entry point (http server) is at app.js. Usually it's on separate file, but with limited time, I cannot find the solution. I'm not sure why, but there's less resources on the net.
+- Unit testing on controller with stubbing repository layer is working fine. This is the strength of dependency injection.
+- I cannot stub repository layer because the repository layer accepts "filename", not the usual database service with its own methods that sinon can stub. If I were to use a real database, I'd be able to stub it.
+- This is my first attempt to write an app in Typescript. I think it's really a fun project though I can't say if I prefer this better than other statically typed languages like Kotlin or Go. Most of the issues I have with Typescript is finding out what an existing popular library returns and how to deal with that, like converting to the usual Javascript object. I have bought udemy course on Nest.js but I haven't had the chance to watch it unfortunately.
