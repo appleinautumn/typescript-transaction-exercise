@@ -7,3 +7,7 @@ export interface Transaction {
   date?: string;
   location?: string;
 }
+
+export interface TransactionDatabase<T> {
+  [key: string]: T;
+}
