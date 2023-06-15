@@ -10,7 +10,7 @@ const TransactionController = require('../../dist/controllers/transaction');
 const repository = new TransactionRepository.default('data.csv');
 const controller = new TransactionController.default(repository);
 
-describe('API Controller Unit Test', () => {
+describe('Controller Unit Test', () => {
   let success;
   let res;
   let next;
@@ -48,6 +48,8 @@ describe('API Controller Unit Test', () => {
     'Google',
   ];
 
+  const locations = ['Australia', 'Japan', 'Indonesia', 'Singapore'];
+
   describe('Test index method', async () => {
     it('should list transactions', async () => {
       const req = {
@@ -64,7 +66,7 @@ describe('API Controller Unit Test', () => {
           counterparty: faker.helpers.arrayElement(counterparties),
           tags: faker.helpers.arrayElements(tags, { min: 1, max: 4 }),
           date: '2022-06-03',
-          location: 'Japan',
+          location: faker.helpers.arrayElement(locations),
         },
         {
           id: faker.number.int({ min: 1, max: 1000 }),
@@ -73,7 +75,7 @@ describe('API Controller Unit Test', () => {
           counterparty: faker.helpers.arrayElement(counterparties),
           tags: faker.helpers.arrayElements(tags, { min: 1, max: 4 }),
           date: '2022-06-03',
-          location: 'Japan',
+          location: faker.helpers.arrayElement(locations),
         },
       ];
 
@@ -132,7 +134,7 @@ describe('API Controller Unit Test', () => {
         counterparty: faker.helpers.arrayElement(counterparties),
         tags: faker.helpers.arrayElements(tags, { min: 1, max: 4 }),
         date: '2022-06-03',
-        location: 'Japan',
+        location: faker.helpers.arrayElement(locations),
       };
 
       // stub get
@@ -175,7 +177,7 @@ describe('API Controller Unit Test', () => {
         counterparty: faker.helpers.arrayElement(counterparties),
         tags: faker.helpers.arrayElements(tags, { min: 1, max: 4 }),
         date: '2022-06-03',
-        location: 'Japan',
+        location: faker.helpers.arrayElement(locations),
       };
 
       // stub get
@@ -230,7 +232,7 @@ describe('API Controller Unit Test', () => {
         counterparty: faker.helpers.arrayElement(counterparties),
         tags: faker.helpers.arrayElements(tags, { min: 1, max: 4 }),
         date: '2022-06-03',
-        location: 'Japan',
+        location: faker.helpers.arrayElement(locations),
       };
 
       // stub get
@@ -275,7 +277,7 @@ describe('API Controller Unit Test', () => {
         counterparty: faker.helpers.arrayElement(counterparties),
         tags: faker.helpers.arrayElements(tags, { min: 1, max: 4 }),
         date: '2022-06-03',
-        location: 'Japan',
+        location: faker.helpers.arrayElement(locations),
       };
 
       // stub get
@@ -321,7 +323,7 @@ describe('API Controller Unit Test', () => {
         counterparty: faker.helpers.arrayElement(counterparties),
         tags: faker.helpers.arrayElements(tags, { min: 1, max: 4 }),
         date: '2022-06-03',
-        location: 'Japan',
+        location: faker.helpers.arrayElement(locations),
       };
 
       // stub get
@@ -367,7 +369,7 @@ describe('API Controller Unit Test', () => {
         counterparty: faker.helpers.arrayElement(counterparties),
         tags: faker.helpers.arrayElements(tags, { min: 1, max: 4 }),
         date: '2022-06-03',
-        location: 'Japan',
+        location: faker.helpers.arrayElement(locations),
       };
 
       // stub get
