@@ -72,10 +72,10 @@ export default class TransactionController {
   };
 }
 
-const getValidFields: (str: string, type: 'FIELD' | 'SORT') => string[] = (
+export const getValidFields: (
   str: string,
   type: 'FIELD' | 'SORT'
-) => {
+) => string[] = (str: string, type: 'FIELD' | 'SORT') => {
   const sortableFields: string[] = [
     'id',
     'account',
@@ -124,7 +124,7 @@ const getValidFields: (str: string, type: 'FIELD' | 'SORT') => string[] = (
   return validFields;
 };
 
-const formatTransactionWithFields: (
+export const formatTransactionWithFields: (
   t: Transaction,
   f: string[]
 ) => Transaction = (transaction: Transaction, fields: string[]) => {
