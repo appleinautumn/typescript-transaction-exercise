@@ -1,5 +1,15 @@
 # Transaction API
 
+The goal of this exercise is to design a read-only API (REST) that returns one or more records from a static set of transaction data.
+
+Requirements:
+
+- list transaction data via API `GET` Request
+  - Filter by one or more fields/attributes (e.g. /transactions?tags=Dining,Travel&counterparty=Google)
+  - Sort by one or more fields/attributes (e.g. /transactions?sort=counterparty)
+- Fetch a single record via `GET` request
+  - Stretch goal: return a sparse field, (e.g. /transactions/32?fields=amount,tags)
+
 ## Requirements
 
 This project is developed with:
