@@ -56,6 +56,14 @@ npm run dev
 
 The database file is simulated via `data/data.csv` file. When the application starts, the file will be loaded to memory.
 
+## Testing
+
+Test the service
+
+```bash
+npm test
+```
+
 ## Deployment
 
 ### Without Docker
