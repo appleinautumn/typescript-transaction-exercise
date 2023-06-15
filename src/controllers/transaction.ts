@@ -1,93 +1,75 @@
 import { RequestHandler } from 'express';
 import _ from 'lodash';
 
-import { TransactionDatabase, getData } from '../db';
-import { Transaction } from '../models/transaction';
+import { Transaction, TransactionDatabase } from '../models/transaction';
+import TransactionRepository from '../repositories/transaction';
 
-export const listTransactions: RequestHandler = async (req, res, next) => {
-  const { sort: sortOriginal, ...filterObject } = req.query;
+export default class TransactionController {
+  #repository: any;
 
-  let filters: any = {};
-
-  // convert filters of union type to object type
-  Object.entries(filterObject).forEach(([key, val]) => {
-    filters[key] = val;
-  });
-
-  // convert sorts of union type to string type
-  let sortString = '';
-  if (sortOriginal) {
-    if (typeof sortOriginal === 'string') {
-      sortString = sortOriginal;
-    }
+  constructor(repo: any) {
+    this.#repository = repo;
   }
 
-  // get sortable fields
-  const sortableFields = getValidFields(sortString, 'SORT');
-  console.log({ sortableFields });
+  listTransactions: RequestHandler = async (req, res, next) => {
+    const { sort: sortOriginal, ...filterObject } = req.query;
 
-  // get data from database
-  const data: TransactionDatabase<Transaction> = getData();
+    let filters: any = {};
 
-  // convert it to list of transactions
-  const transactionList: Transaction[] = [];
-  Object.entries(data).forEach(([key, val]) => {
-    transactionList.push(val);
-  });
-
-  // start filtering
-  let filteredData: any;
-  Object.entries(filters).forEach(([key, val]) => {
-    filteredData = transactionList.filter((el) => {
-      const k = key as string;
-      console.log(el[k as keyof Transaction] as string, val);
-
-      return (el[k as keyof Transaction] as string).toLowerCase() === val;
+    // convert filters of union type to object type
+    Object.entries(filterObject).forEach(([key, val]) => {
+      filters[key] = val;
     });
 
-    console.log({ filteredData });
-  });
-
-  // sort the list
-  if (sortableFields.length > 0) {
-    return res.success(_.sortBy(filteredData, sortableFields));
-  }
-
-  res.success(filteredData);
-};
-
-export const getTransaction: RequestHandler<{ id: string }> = async (
-  req,
-  res,
-  next
-) => {
-  const { id } = req.params;
-  const { fields: fieldsOriginal } = req.query;
-
-  // convert fields union type to string type
-  let fieldString = '';
-  if (fieldsOriginal) {
-    if (typeof fieldsOriginal === 'string') {
-      fieldString = fieldsOriginal;
+    // convert sorts of union type to string type
+    let sortString = '';
+    if (sortOriginal) {
+      if (typeof sortOriginal === 'string') {
+        sortString = sortOriginal;
+      }
     }
-  }
 
-  // get searchable fields
-  const validFields = getValidFields(fieldString, 'FIELD');
+    // get sortable fields
+    const sortableFields = getValidFields(sortString, 'SORT');
 
-  // get data
-  const data: TransactionDatabase<Transaction> = getData();
+    // get data from database
+    const data: TransactionDatabase<Transaction> = this.#repository.list(
+      filters,
+      sortableFields
+    );
 
-  // get transaction by id
-  const transaction: Transaction = data[Number(id)];
+    res.success(data);
+  };
 
-  if (!transaction) {
-    return res.json({});
-    // throw new Error('not found');
-  }
+  getTransaction: RequestHandler<{ id: string }> = async (req, res, next) => {
+    const { id } = req.params;
+    const { fields: fieldsOriginal } = req.query;
 
-  res.success(formatTransactionWithFields(transaction, validFields));
-};
+    // convert fields union type to string type
+    let fieldString = '';
+    if (fieldsOriginal) {
+      if (typeof fieldsOriginal === 'string') {
+        fieldString = fieldsOriginal;
+      }
+    }
+
+    // get searchable fields
+    const validFields = getValidFields(fieldString, 'FIELD');
+
+    // get data
+    const data: TransactionDatabase<Transaction> = this.#repository.get();
+
+    // get transaction by id
+    const transaction: Transaction = data[Number(id)];
+
+    if (!transaction) {
+      return res.json({});
+      // throw new Error('not found');
+    }
+
+    res.success(formatTransactionWithFields(transaction, validFields));
+  };
+}
 
 const getValidFields: (str: string, type: 'FIELD' | 'SORT') => string[] = (
   str: string,
