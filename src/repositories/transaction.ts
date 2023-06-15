@@ -50,17 +50,17 @@ export default class TransactionRepository {
     });
 
     // start filtering
-    let filteredData: any;
+    let filteredData: Transaction[] = transactionList;
 
-    if (Object.keys(filters).length) {
+    console.log({ filters });
+
+    if (Object.keys(filters).length > 0) {
       Object.entries(filters).forEach(([key, val]) => {
-        filteredData = transactionList.filter((el) => {
+        filteredData = filteredData.filter((el) => {
           const k = key as string;
           return (el[k as keyof Transaction] as string).toLowerCase() === val;
         });
       });
-    } else {
-      filteredData = transactionList;
     }
 
     // sort the list
@@ -68,7 +68,7 @@ export default class TransactionRepository {
       return _.sortBy(filteredData, sortableFields);
     }
 
-    return transactionList;
+    return filteredData;
   }
 
   get(id: number) {
