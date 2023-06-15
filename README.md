@@ -140,3 +140,7 @@ List transactions with multiple filters
 List transactions with multiple filters and multiple sorts
 
 ![list-with-2-filters-multiple-sorts](docs/images/list-with-2-filters-multiple-sorts.png)
+
+Get a transaction by id with specified sparse fields
+
+![get-with-sparse-fields](docs/images/get-with-sparse-fields.png)
