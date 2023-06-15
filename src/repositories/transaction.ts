@@ -52,8 +52,6 @@ export default class TransactionRepository {
     // start filtering
     let filteredData: Transaction[] = transactionList;
 
-    console.log({ filters });
-
     if (Object.keys(filters).length > 0) {
       Object.entries(filters).forEach(([key, val]) => {
         filteredData = filteredData.filter((el) => {
