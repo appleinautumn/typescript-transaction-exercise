@@ -1,36 +1,40 @@
 import { json } from 'body-parser';
+import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 
 import successHandler from './middlewares/success_handler';
 import indexRouter from './routes/index';
-import { loadDatabase } from './db';
 
 // extend response object
 express.response.success = successHandler;
 
-async function main() {
-  const app = express();
+const app = express();
+let server: any;
 
-  app.use(json());
-  app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(express.urlencoded({ extended: false }));
 
-  app.use('/transactions', indexRouter);
+app.use('/transactions', indexRouter);
 
-  await loadDatabase();
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+  res.send('Transaction API');
+});
 
-  app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send('Transaction API');
+// error handler
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  res.status(500).json({
+    message: err.message,
+    data: null,
   });
+});
 
-  // error handler
-  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    res.status(500).json({
-      message: err.message,
-      data: null,
-    });
-  });
+server = app.listen(process.env.APP_PORT, () => {
+  var host = server.address().address;
+  var port = server.address().port;
 
-  app.listen(3000);
-}
+  console.log(`App listening at http://${host}:${port}`);
+});
 
-main();
+console.log(process.env.NODE_ENV);
+
+export default server;
