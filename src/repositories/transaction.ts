@@ -46,7 +46,7 @@ export default class TransactionRepository {
     // convert it to list of transactions
     const transactionList: Transaction[] = [];
     Object.entries(this.#db).forEach(([key, val]) => {
-      transactionList.push(val);
+      transactionList.push(val as Transaction);
     });
 
     // start filtering
