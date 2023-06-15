@@ -2,6 +2,7 @@ import fs from 'fs';
 import * as csv from 'fast-csv';
 import { ParserOptionsArgs } from 'fast-csv';
 import { HeaderArray, HeaderTransformFunction } from '@fast-csv/parse';
+import createError from 'http-errors';
 import _ from 'lodash';
 import * as path from 'path';
 
@@ -21,7 +22,6 @@ export default class TransactionRepository {
         ),
     };
 
-    // fs.createReadStream(path.resolve(__dirname, '../../data', 'data.csv'))
     fs.createReadStream(path.resolve(__dirname, '../../data', filename))
       .pipe(csv.parse(options))
       .on('error', (error) => {
@@ -54,24 +54,26 @@ export default class TransactionRepository {
     Object.entries(filters).forEach(([key, val]) => {
       filteredData = transactionList.filter((el) => {
         const k = key as string;
-        // console.log(el[k as keyof Transaction] as string, val);
-
         return (el[k as keyof Transaction] as string).toLowerCase() === val;
       });
-
-      // console.log({ filteredData });
     });
 
     // sort the list
     if (sortableFields.length > 0) {
-      // return res.success_.sortBy(filteredData, sortableFields));
       return _.sortBy(filteredData, sortableFields);
     }
 
     return this.#db;
   }
 
-  get() {
-    return this.#db;
+  get(id: number) {
+    // get transaction by id
+    const transaction: Transaction = this.#db[id];
+
+    if (!transaction) {
+      throw createError(404, 'Transaction not found.');
+    }
+
+    return transaction;
   }
 }
