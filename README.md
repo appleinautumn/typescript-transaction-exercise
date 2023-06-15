@@ -16,6 +16,10 @@ This project is developed with:
 
 - Node 18
 
+## API Documentation
+
+[Postman API Documentation](https://documenter.getpostman.com/view/3021947/2s93sgWVoa#b0e695ed-eb5e-4b77-965a-4939f5683139).
+
 ## Installation
 
 Clone the project
