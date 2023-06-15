@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./dist/app\"",
     "start": "node ./dist/app",
-    "test": "NODE_ENV=test concurrently \"npx tsc --watch\" \"mocha --timeout 7000 --exit './test/**/*.test.js'\""
+    "test": "NODE_ENV=test mocha --timeout 7000 --exit './test/**/*.test.js'"
   },
   "dependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
@@ -32,6 +32,7 @@
     "faker-js": "^1.0.0",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
+    "sinon": "^15.1.2",
     "supertest": "^6.3.3",
     "typescript": "^5.1.3"
   }
