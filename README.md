@@ -43,3 +43,21 @@ npm run dev
 The database file is simulated via `data/data.csv` file. When the application starts, the file will be loaded to memory.
 
 ## Deployment
+
+### Without Docker
+
+Follow the Installation instruction above
+
+### With Docker
+
+Build the image
+
+```bash
+docker build -t bunker-test1 .
+```
+
+Run the container
+
+```bash
+docker run -d --name bunkertest1 -p 3001:3000 --network=host --env-file=.env bunker-test1
+```
