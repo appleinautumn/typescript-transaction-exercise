@@ -58,17 +58,52 @@ The database file is simulated via `data/data.csv` file. When the application st
 
 ## Testing
 
-Test the service
+Test the service with `npm test`.
 
 ```bash
-npm test
+$ npm test
+
+> take-home-exercises@0.0.0 test
+> NODE_ENV=test mocha --timeout 7000 --exit './test/**/*.test.js'
+
+
+
+  Controller Unit Test
+    Test index method
+      ✔ should list transactions
+      ✔ should get a transactions by id
+      ✔ should get a transactions by id with no fields specified
+      ✔ should get a transactions by id with fields: id
+      ✔ should get a transactions by id with fields: id, account
+      ✔ should get a transactions by id with fields: account, amount
+      ✔ should get a transactions by id with fields: amount, counterparty, tags
+      ✔ should get a transactions by id with fields: id, account, amount, counterparty, tags, date, location
+      ✔ should capture an error on getting a record when the repository throws an error
+
+  Test getValidFields for sorts
+    ✔ should empty array for empty sort string
+    ✔ should return empty array for all invalid fields (aa,bb,cc)
+    ✔ should return 1 valid field in an array and exclude invalid fields (aa,bb)
+
+  Test getValidFields for sparse fields
+    ✔ should return complete valid fields for empty field string
+    ✔ should return complete valid fields for all invalid field string
+    ✔ should return 1 valid field for 1 valid and other invalid string
+
+  Test formatTransactionWithFields
+    ✔ should return an empty object for empty fields
+    ✔ should return an empty object for all invalid fields
+    ✔ should return valid fields and exlude invalid fields
+
+
+  18 passing (214ms)
 ```
 
 ## Deployment
 
 ### Without Docker
 
-Follow the Installation instruction above
+Follow the Installation instruction above.
 
 ### With Docker
 
@@ -88,4 +123,8 @@ docker run -d --name bunkertest1 -p 3001:3000 --network=host --env-file=.env bun
 
 List transactions
 
-![List transactions](docs/images/list.png)
+![list](docs/images/list.png)
+
+List transactions with 1 filter
+
+![list-with-1-filter](docs/images/list-with-1-filter.png)
