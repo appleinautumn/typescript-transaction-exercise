@@ -1,14 +1,14 @@
 {
   "name": "take-home-exercises",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
+    "build": "npx tsc",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./dist/app\"",
     "start": "node ./dist/app",
-    "test": "NODE_ENV=test mocha --timeout 7000 --exit './test/**/*.test.js'"
+    "test": "NODE_ENV=test mocha --timeout 1000 --exit './test/**/*.test.js'"
   },
   "dependencies": {
-    "@apidevtools/swagger-cli": "^4.0.4",
     "@fast-csv/parse": "^4.3.6",
     "@types/http-errors": "^2.0.1",
     "axios": "^1.4.0",
