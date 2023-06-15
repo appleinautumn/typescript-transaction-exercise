@@ -72,6 +72,14 @@ export default class TransactionController {
   };
 }
 
+/**
+ * Return a list of valid fields for sorting and sparse fields.
+ *
+ * @param str - A comma separated string that comes from http query string
+ * @param type - Either "FIELD" or "SORT".
+ * @returns string[] - An array of strings of valid fields
+ *
+ */
 export const getValidFields: (
   str: string,
   type: 'FIELD' | 'SORT'
@@ -124,6 +132,14 @@ export const getValidFields: (
   return validFields;
 };
 
+/**
+ * Return a Transaction object with specifield sparse fields.
+ *
+ * @param Transaction - The Transaction object.
+ * @param fields - An array of string of fields.
+ * @returns Transaction[] - The transaction object with specified fields only.
+ *
+ */
 export const formatTransactionWithFields: (
   t: Transaction,
   f: string[]

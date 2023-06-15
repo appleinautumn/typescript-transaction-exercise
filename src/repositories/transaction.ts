@@ -43,7 +43,7 @@ export default class TransactionRepository {
   }
 
   /**
-   * Returns the list of filtered and sorted transactions.
+   * Return a list of filtered and sorted transactions.
    *
    * @param filters - A hashtable of filters. The key is the field name, the value is the field value.
    * @param sortableFields - An array of string for sorting.
@@ -78,7 +78,7 @@ export default class TransactionRepository {
   }
 
   /**
-   * Returns the transaction by id. Throw an error if not exist.
+   * Return a transaction by id. Throw an error if not exist.
    *
    * @param id - Transaction id
    * @returns Transaction - The transaction
