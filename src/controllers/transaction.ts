@@ -2,7 +2,6 @@ import { RequestHandler } from 'express';
 import _ from 'lodash';
 
 import { Transaction, TransactionDatabase } from '../models/transaction';
-import TransactionRepository from '../repositories/transaction';
 
 export default class TransactionController {
   #repository: any;
