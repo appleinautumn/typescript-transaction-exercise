@@ -7,3 +7,9 @@ declare global {
     }
   }
 }
+
+declare global {
+  interface Error {
+    status: number;
+  }
+}
