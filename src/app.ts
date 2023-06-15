@@ -22,7 +22,7 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  res.status(500).json({
+  res.status(err.status ?? 500).json({
     message: err.message,
     data: null,
   });
@@ -32,9 +32,9 @@ server = app.listen(process.env.APP_PORT, () => {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log(`App listening at http://${host}:${port}`);
+  console.log(
+    `[${process.env.NODE_ENV}] App listening at http://${host}:${port}`
+  );
 });
-
-console.log(process.env.NODE_ENV);
 
 export default server;
