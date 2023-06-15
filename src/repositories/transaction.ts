@@ -42,6 +42,14 @@ export default class TransactionRepository {
       });
   }
 
+  /**
+   * Returns the list of filtered and sorted transactions.
+   *
+   * @param filters - A hashtable of filters. The key is the field name, the value is the field value.
+   * @param sortableFields - An array of string for sorting.
+   * @returns Transaction[]
+   *
+   */
   list(filters: any, sortableFields: string[]) {
     // convert it to list of transactions
     const transactionList: Transaction[] = [];
@@ -69,6 +77,13 @@ export default class TransactionRepository {
     return filteredData;
   }
 
+  /**
+   * Returns the transaction by id. Throw an error if not exist.
+   *
+   * @param id - Transaction id
+   * @returns Transaction - The transaction
+   *
+   */
   get(id: number) {
     // get transaction by id
     const transaction: Transaction = this.#db[id];
