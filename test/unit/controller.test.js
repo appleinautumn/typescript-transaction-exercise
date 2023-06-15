@@ -12,15 +12,12 @@ const controller = new TransactionController.default(repository);
 
 describe('API Controller Unit Test', () => {
   let success;
-  let status;
   let res;
   let next;
 
   beforeEach(() => {
     success = sinon.spy();
-    status = sinon.stub();
-    res = { success, status };
-    // status.returns(res);
+    res = { success };
     next = sinon.spy();
   });
 
