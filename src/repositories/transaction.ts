@@ -68,7 +68,7 @@ export default class TransactionRepository {
       return _.sortBy(filteredData, sortableFields);
     }
 
-    return this.#db;
+    return transactionList;
   }
 
   get(id: number) {
