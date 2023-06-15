@@ -125,6 +125,18 @@ List transactions
 
 ![list](docs/images/list.png)
 
+List transactions with multiple sorts
+
+![list-with-multiple-sorts](docs/images/list-with-multiple-sorts.png)
+
 List transactions with 1 filter
 
 ![list-with-1-filter](docs/images/list-with-1-filter.png)
+
+List transactions with multiple filters
+
+![list-with-2-filters](docs/images/list-with-2-filters.png)
+
+List transactions with multiple filters and multiple sorts
+
+![list-with-2-filters-multiple-sorts](docs/images/list-with-2-filters-multiple-sorts.png)
