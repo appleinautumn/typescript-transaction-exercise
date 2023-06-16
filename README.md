@@ -154,10 +154,12 @@ Get a transaction by id with specified sparse fields
 - `test` directory is where all the tests files are located. Yes this is pure Javascript given the limited time. But the app itself is all written with Typescript.
 - `src/app.ts` is the main entry point.
 - `src/routes` is the route.
-- `src/controllers` is to store handlers for "listing" and "getting" Transaction routes.
+- `src/controllers` is to store handlers for "listing" and "getting" Transaction routes. It has one dependency: the repository layer (`#repository`). The controller also contains 2 helper functions: `getValidFields` and `formatTransactionWithFields`. Function `getValidFields` is to make sure the entered "sparse fields" or "sort fields" are of valid values. Function `formatTransactionWithFields` is to return the Transaction record to contain only specific fields.
 - `src/middlewares` is where middlewares are. Currently only 1 file and it extends the express object to have "success" handler so that we have a success template for happy path.
-- `src/repositories` is repository layer. This is where our application gets the data from. Normally a "Service" layer will interact with this file, but this API is too small to need this layer.
 - `src/models` is where I define the Transaction interface.
+- `src/repositories` is repository layer. This is where our application gets the data from. Normally a "Service" layer will interact with this file, but this API is too small to need this layer.
+- In the repository layer, the storage of the database file is simulated via a hash table of `<String, Object>` (i.e. private variable `#db`). So that when retrieving a specific Transaction by id (`/transactions/:id`), we can access to that specific record directly (an `O(1)` operation).
+- In the repository layer, the listing of the records (i.e. `/transactions`) will translate the hash table to an array of records. Then only filtering and sorting logic are applied. Usually the filtering and sorting logic is done at the database layer, but since I'm using the in-memory database, I have to do it manually.
 - I cannot make the integration test work (with supertest library) because the entry point (http server) is at app.js. Usually it's on separate file, but with limited time, I cannot find the solution. I'm not sure why, but there's less resources on the net.
 - Unit testing on controller with stubbing repository layer is working fine. This is the strength of dependency injection.
 - I cannot stub repository layer because the repository layer accepts "filename", not the usual database service with its own methods that sinon can stub. If I were to use a real database, I'd be able to stub it.
