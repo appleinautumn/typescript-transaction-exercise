@@ -21,13 +21,13 @@ This project is developed with:
 Clone the project
 
 ```bash
-git clone git@github.com:appleinautumn/bunker-take-home-exercise.git
+git clone git@github.com:appleinautumn/typescript-transaction-exercise.git
 ```
 
 Go to the project directory
 
 ```bash
-cd bunker-take-home-exercise
+cd typescript-transaction-exercise
 ```
 
 This service contains a `.env.example` file that defines environment variables you need to set. Copy and set the variables to a new `.env` file.
