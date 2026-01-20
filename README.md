@@ -42,7 +42,15 @@ Install the dependencies
 npm install
 ```
 
-Compile the typescript code and start the app
+Compile the typescript code
+
+```bash
+npx tsc
+```
+
+This will generate a 'dist' directory with the compiled JavaScript files.
+
+Alternatively, you can compile and start the app in development mode with hot reloading:
 
 ```bash
 npm run dev
